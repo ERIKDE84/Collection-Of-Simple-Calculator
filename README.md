@@ -2,8 +2,7 @@ This Repo is as the name suggests a collection of some simple calculators.
 
 Table of Contents:
 - IsPrime
-- ResistorSeries
-- ResistorParallel
+- Resistor(Series & Parallel)
 - EuclideanAlgorithm 
 - PrimeFactorization (Still work in Progress)
 - ...
