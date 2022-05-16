@@ -1,17 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-long isPrime(char* str_p){
-    long i, p;
-    
-    p = strtol(str_p, 0, 10); 
+long primeFactorization(char* str_num){
+    long num = strtol(str_num, 0, 10); 
 
-    for(i = 2; i < p/2; i++){
-        if( !(p % i) ){
-            return i;
-        }
-    }
-    return 0;
 }
 
 
