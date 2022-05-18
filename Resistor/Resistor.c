@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 double ResSeries(double arr[], int size){
     double sum;
@@ -22,19 +23,24 @@ double ResParallel(double arr[], int size){
 
 int main(int argc, char **argv){
     int a; 
+    char* str[8], endptr; 
     double arr[] = {1.2, 2.4, 1.001, 10.547, 4.47892}, result;
 
     // get connection type between resistors
-    printf("1: Series\n"
+    printf("\n1: Series\n"
         "2: Parallel\n"
         "How are the resistors connected (1 or 2)? "
     );
-    
-    // Bug: doesnt call the functions anymore
-    while (scanf("%d",& a) != 1 && a != 1 && a != 2) {
-        printf("Invalid input - try again ");
-        scanf("%*s");
-    }  
+
+    do{
+        fgets(str, 7, stdin);
+        a = strtol(str, endptr, 10);
+    }while(a != 1 && a != 2);
+
+    // while(scanf("%c",& a) != 1 || a != '1' && a != '2'){
+    //     printf("Invalid input, try again! --> ");
+    //     scanf("%*s");
+    // }  
     
     // read values from user to array with linkedList 
     // or maybe a way to realloc additional memory to array if needed
@@ -46,7 +52,7 @@ int main(int argc, char **argv){
         result = ResParallel(arr, sizeof(arr)/sizeof(arr[0]));
     }
 
-    printf("%.3f Ohm\n", result);
+    printf("\n%.3f Ohm\n\n", result);
 }
 
 

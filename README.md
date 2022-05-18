@@ -5,7 +5,7 @@ Table of Contents:
 - Resistor(Series & Parallel)
 - EuclideanAlgorithm 
 - PrimeFactorization (work in Progress)
-- SquareRoot
+- SquareRoot (work in progress)
 
 
 
