@@ -2,29 +2,59 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-double ResSeries(double arr[], int size){
-    double sum;
+typedef struct _element {
+    double d;
+    struct _element *next;
+}ELEMENT, *EP;
 
-    for(int i = 0; i < size; i++){
-        sum += arr[i];
+void prtList(EP first){
+    for(; first; first = first->next){
+        printf("%f\n", first->d);
+    }
+    printf("\n");
+}
+
+EP newElement(double d){
+    EP p = malloc( sizeof(ELEMENT) );
+    if(p){
+        p->d = d; p->next = 0;
+    }
+    return p;
+}
+
+void insertDouble(double d, EP ptr){
+    EP p = newElement(d);
+    if(p){
+        while(ptr->next){
+            ptr = ptr->next;
+        }
+        ptr->next = p;
+    }
+}
+
+double ResSeries(EP ptr){
+    double sum;
+    for(;ptr->next; ptr=ptr->next){
+        sum += ptr->next->d;
     }
     return sum;
 }
 
-double ResParallel(double arr[], int size){
+double ResParallel(EP ptr){
     double sum;
-    
-    for(int i = 0; i < size; i++){
-        sum += (1/arr[i]);
+    for(;ptr->next; ptr=ptr->next){
+        sum += 1/ptr->next->d;
     }
     sum = 1/sum;
     return sum;
 }
 
 int main(int argc, char **argv){
-    int a; 
-    char* str[8], endptr; 
-    double arr[] = {1.2, 2.4, 1.001, 10.547, 4.47892}, result;
+    char a;
+    double result, input = 0.0;
+    int i = 0;
+
+    EP ptr = newElement(input);
 
     // get connection type between resistors
     printf("\n1: Series\n"
@@ -32,27 +62,30 @@ int main(int argc, char **argv){
         "How are the resistors connected (1 or 2)? "
     );
 
-    do{
-        fgets(str, 7, stdin);
-        a = strtol(str, endptr, 10);
-    }while(a != 1 && a != 2);
-
-    // while(scanf("%c",& a) != 1 || a != '1' && a != '2'){
-    //     printf("Invalid input, try again! --> ");
-    //     scanf("%*s");
-    // }  
+    while(scanf("%c",& a) != 1 || a != '1' && a != '2'){
+        printf("Invalid input, try again! --> ");
+        scanf("%*c");
+    }  
+    printf("\n");
     
-    // read values from user to array with linkedList 
-    // or maybe a way to realloc additional memory to array if needed
+    // read resistor values from user
+    do{
+        printf("Enter the value of the %d resistor (\"0\" if you are done): ", i);
+        scanf("%lf", & input);
+        if(input != 0){
+            insertDouble(input, ptr);
+        }
+    }
+    while(input != 0);
 
     // call function dependent on connection type
     if(a == '1'){
-        result = ResSeries(arr, sizeof(arr)/sizeof(arr[0]));
+        result = ResSeries(ptr);
     } else if(a == '2'){
-        result = ResParallel(arr, sizeof(arr)/sizeof(arr[0]));
+        result = ResParallel(ptr);
     }
 
-    printf("\n%.3f Ohm\n\n", result);
+    printf("\nThe total resistance (%s) = %.2f Ohm\n\n", a =='1'? "series":"parallel",result);
 }
 
 

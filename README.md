@@ -4,7 +4,7 @@ Table of Contents:
 - IsPrime
 - Resistor(Series & Parallel)
 - EuclideanAlgorithm 
-- PrimeFactorization (work in Progress)
+- PrimeFactorization (work in progress)
 - SquareRoot (work in progress)
 
 
